@@ -1,0 +1,85 @@
+
+<ngx-spinner type="ball-pulse-sync" color="#e74c3c">
+    <p style="font-size: 20px; color: #e74c3c">{{api.translate('Please wait...')}} </p>
+</ngx-spinner>
+<div class="row">
+    <div class="col-sm-12">
+
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>Todas las presentaciones </h5>
+            </div>
+
+            <div class="card-body reset-table p-t-0">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Buscar</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-round" placeholder="Buscar  presentacion"
+                            (input)="search($event.target.value)">
+                    </div>
+                    <div class="col-sm-4">
+                        <button style="float: right;" type="button" (click)="createNew()"
+                            class="btn btn-danger btn-round">CREAR</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-uppercase">
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Estatus</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy ">
+                                <td>
+                                    <ngx-skeleton-loader count="1"
+                                        [theme]="{ 'border-radius': '5px', height: '10px', border: '1px solid white' }">
+                                    </ngx-skeleton-loader>
+                                </td>
+                                <td>
+                                    <ngx-skeleton-loader count="1"
+                                        [theme]="{ 'border-radius': '5px', height: '10px', border: '1px solid white' }">
+                                    </ngx-skeleton-loader>
+                                </td>
+                                <td>
+                                    <ngx-skeleton-loader count="1"
+                                        [theme]="{ 'border-radius': '5px', height: '10px', border: '1px solid white' }">
+                                    </ngx-skeleton-loader>
+                                </td>
+                                <td>
+                                    <ngx-skeleton-loader count="1"
+                                        [theme]="{ 'border-radius': '5px', height: '10px', border: '1px solid white' }">
+                                    </ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr
+                                *ngFor="let item of sub | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page };let i = index;">
+                                <td><a href="javascript:;"><img class="img-responsive"
+                                            style="height: 50px;width: 70px;border-radius: 10px;"
+                                            [src]="api.mediaURL + item.cover" onError="this.src='assets/icon.png'"
+                                            alt="chat-user"></a>
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td><button type="button" [className]="getClass(item.status)"
+                                        (click)="changeStatus(item)">{{item.status === '1' ?
+                                        'Activo':'Desactivado'}}</button>
+                                </td>
+                                <td><button type="button" (click)="view(item)"
+                                        class="btn btn-success btn-round btn-outline-success">Ver</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="has-text-centered">
+                    <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
